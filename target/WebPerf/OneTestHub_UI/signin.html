@@ -1,0 +1,190 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if IEMobile 7]><html class="iem7" lang="en" dir="ltr"><![endif]-->
+<!--[if lte IE 6]><html class="lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8" lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!-->
+
+<html dir="ltr" lang="en">
+<!--<![endif]-->
+
+<head>
+
+    <meta charset="utf-8">
+    <link href="/static/images/favicon.ico" rel="shortcut icon" type=
+    "image/vnd.microsoft.icon">
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+
+    <title>AppDynamics | Sign In</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" type="text/javascript"></script>
+
+    <link href="https://login.appdynamics.com/static/style/base-style-new.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="/static/style/fonts.css" rel="stylesheet" type="text/css">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!--[if (lt IE 9)&(!IEMobile 7)]>
+    <style media="screen">@import url("/sites/default/files/adaptivetheme/appdynamicstheme_files/appdynamicstheme.lt-ie9.layout.css?meh3d3");</style>
+    <![endif]-->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    
+<link type="text/css" rel="stylesheet" href="https://login.appdynamics.com/static/style/foundation.css"  />
+<link type="text/css" rel="stylesheet" href="https://login.appdynamics.com/static/style/signin-new-update.css"  />
+<link type="text/css" rel="stylesheet" href="https://login.appdynamics.com/static/style/signin-media.css" />
+<script type="text/javascript" src="/static/js/placeholder.js"></script>
+ 
+
+    <!-- Marketo -->
+    <script src="//code.jquery.com/jquery-migrate-1.1.1.js" type=
+    "text/javascript"></script>
+
+    <script src="//munchkin.marketo.net/munchkin.js" type=
+"text/javascript"></script>
+
+
+    <div id="page-wrapper">
+
+        <!-- start: Header -->
+        <div class="page hidden-xs" id="page">
+            <div id="header-wrapper">
+                <div class="container clearfix">
+                    <header class="clearfix" id="header">
+
+                        <!-- start: Branding -->
+                        <div class="branding-elements clearfix" id="branding">
+
+                            <!-- start: Logo Image -->
+                            <div id="logo">
+                                <a href="/" title="Home page"><img alt=
+                                "OneTestHub" class=
+                                "site-logo image-style-none" src=
+                                "/static/images/onetesthub-logo.png"></a>
+                            </div>
+                            <!-- /end: #logo -->
+
+                            <!-- start: Site name and Slogan hgroup -->
+                            <hgroup id="name-and-slogan">
+                                <h1 id="site-name"><a href="/" title=
+                                "Home page"></a></h1>
+                            </hgroup>
+                            <!-- /end #name-and-slogan -->
+                        </div>
+                        <!-- /end #branding -->
+
+                    </header>
+                </div>
+            </div>
+        </div>
+        <!-- /end: #header -->
+
+        <!-- start: Page Content -->
+        <div class="container">
+            <div class="row">
+
+                <div class="mobile-hide base-description col-sm-8 hidden-xs">
+                  <h1>OneTestHub in Cloud</h1>
+                   <ul>
+                    <li>All your TestMetrics under one Umberalla</li>
+                    <li>Compare years of all your test metrics in one click</li>
+                    <li>Real Time insight for running Test automation</li>
+                  </ul>
+
+                </div>
+
+                <div id="content-wrapper base-form" class="col-sm-4">
+                  
+<div class="form-area">
+
+  <div class="message">                         
+                              
+  </div>
+
+        
+
+  <form class="login-form-fields" action="/sso/login/" method="post" name="partnersloginForm">
+    <input type="hidden" name='site' value="selfservice" />
+    <input type="hidden" name='target' value="https://portal.onetesthub.com/account/subscriptions/home/" /> 
+
+
+    <div class="row">
+      <div class="col-sm-12 header">
+        <h2 class="hidden-xs">Sign In</h2>
+        <img class="mobile-logo visible-xs" src="/static/images/mobile-logo.png" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 input-field">
+        <input id="id_username" name="username" placeholder="Email" tabindex="1" type="text" /><p class="redletter"></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 input-field">
+        <input id="id_password" name="password" placeholder="Password" tabindex="2" type="password" /><p class="redletter"></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 submit-button">
+        <div class="action-wrapper">
+          <input type="Submit" tabindex="3" value="Sign In">
+        </div>
+      </div>
+    </div>
+
+  </form>
+  
+  <div class="login-form-links">
+    <div class="row">
+      <div class="col-md-12">
+        <a class="forgot_password" href="/sso/forgotpassword/">Forgot Password</a>
+        &nbsp;|&nbsp;
+        <a class="sign_up" href="/selfservice/signup/community/">Sign Up Today</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  $('input').addPlaceholder();
+  $('#id_username').focus();
+//  $('input').addPlaceholder({'dotextarea':false, 'allowspaces':true});
+</script>
+
+                </div>
+
+            </div>
+
+            <div class="row main-cta hidden-xs">
+            	<div class="col-sm-12">
+            		
+<div class="base-description-cta">
+  <span class="cta-question">Haven't started your 30-day free trial?</span><a class="cta-button" href="https://portal.onetesthub.com/account/signup/signupform">Try OneTestHub <i class="fa fa-arrow-circle-right"></i></a>
+</div>
+
+            	</div>
+            </div>
+
+        </div>
+        <!-- /end: #content -->
+
+    </div>
+
+</body>
+</html>

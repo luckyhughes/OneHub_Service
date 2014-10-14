@@ -1,0 +1,209 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+<script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
+<script src="http://underscorejs.org/underscore-min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function()
+    {
+		$('button').click(function() {
+		//	 setInterval(function () {	
+    	console.log("Hello console");
+    	$.ajaxSetup( { "async": false } );
+	
+    	//formattedForGraph = getJsonData("select * from AggregateMetrics");
+    	
+		
+		//console.log(formattedForGraph);
+		//alert(formattedForGraph.length);
+		//alert(formattedForGraph[0].data);
+    	plotchart("select * from AggregateMetrics limit 2","avg_response");
+    	//plotchart([formattedForGraph[1]],"network_throughput");
+    	//plotchart([formattedForGraph[2]],"sample_summary");
+
+    	$.ajaxSetup( { "async": true } );
+    	// }, 2000);
+		});
+
+    });
+ </script>
+ 
+ <script>
+
+ function getJsonData(query)
+ {
+	 var url = "http://54.68.127.15:8086/db/performance/series?u=root&p=root&q="+ query;
+
+	 var formattedForGraph =[];
+
+		console.log("ulr is:" + url);
+		
+		$.getJSON(url, function(jsondata) {
+			
+			//console.log(jsondata);		
+			
+		//var formattedForGraph = [];
+
+				for (var i = 0; i < jsondata[0].columns.length; i++) {
+					var seriesToPlot = {
+						name : jsondata[0].columns[i],
+						data : []
+					};
+					for (var j = 0; j < jsondata[0].points.length; j++) {
+						seriesToPlot.data.push(jsondata[0].points[j][i]);
+					}
+					formattedForGraph.push(seriesToPlot);
+				}
+	
+		});
+
+		var sortedJson = _.sortBy(formattedForGraph, 'name');
+		console.log(sortedJson);
+		return sortedJson;
+ }
+function convertTime(epoch)
+{
+	  var time=[];
+	  var offset = (new Date).getTimezoneOffset()*60000;
+
+		for(var i=0;i<epoch.length;i++)
+		{
+	     var date=new Date(epoch[i] - offset); //get offset for local timezone and convert epoch time to localtime zone
+
+	     time.push(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds());
+	  	}
+	return time;
+}
+
+	function plotchart(query,divid){
+
+		titleText = "title";
+		divid = '#'+divid;
+		console.log(divid);
+        var timestamp;
+		var formattedForGraph = getJsonData(query);
+		
+	//	for(var i=0;i<formattedForGraph[0].data.length;i++)
+		//{
+			//tt=convertTime(formattedForGraph[0].data[i]);
+        timestamp=convertTime(formattedForGraph[8].data);
+		  // alert(formattedForGraph[0].data);  
+	//	}
+		//alert(timestamp[0]);
+		console.log(formattedForGraph);
+	
+		$(divid).highcharts(
+				{
+				
+				chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function () {
+                 // this.xAxis[0].categories=timestamp;
+				  console.log(timestamp);
+                        // set up the updating of the chart each second
+                        
+						//ttime=1411953240393;
+						//axis=10;
+
+						var series = this.series;
+                        var xax=this.xAxis[0].categories;
+                      //  alert(xax);
+					  var counter=0;
+						setInterval(function () 
+						{
+							query = "select * from AggregateMetrics limit 1"; 
+							$.ajaxSetup( { "async": false } );
+                            formattedForGraph_pull = getJsonData(query);
+                            //$.ajaxSetup( { "async": true } );
+	                       	//console.log(formattedForGraph_pull);
+							
+							//alert(formattedForGraph.length);
+							//alert(formattedForGraph[0].data[formattedForGraph[0].data.length-1]);
+    						//plotchart([formattedForGraph[0]],"avg_response");
+							var addtime=convertTime(formattedForGraph_pull[8].data);
+							  counter++;
+                            if(counter%12==0)
+							xax.push(addtime);
+							else
+							xax.push("");
+							
+
+							// var x=""+formattedForGraph_pull[0].data;
+							for ( i=0; i<formattedForGraph_pull.length; i++) {
+							//series = series[i];
+
+                            //var x = ++axis, // current time
+                                y =  formattedForGraph_pull[i].data;
+
+                                console.log(y); 
+
+                                //.data[formattedForGraph[0].data.length-1];
+                            shift = series[i].data.length > 20;
+                            series[i].addPoint(y, true, shift);
+						
+                        }
+                        
+					   
+					    }, 5000);
+                    }
+                }
+            },
+					title : {
+						text : 'Performance Heath'
+						//x : 0
+					//center
+					
+					},
+
+					xAxis: {
+                		type: 'datetime',
+                		tickPixelInterval: 100,
+						categories: timestamp,
+            		},
+
+            		yAxis: {
+                		title: {
+                    	text: 'Value'
+                	},
+                	plotLines: [{
+                    	value: 0,
+                    	width: 1,
+                    	color: '#808080'
+                		}]
+            		},
+
+					tooltip : {
+						valueSuffix : ''
+					},
+					legend : {
+						layout : 'vertical',
+						align : 'right',
+						verticalAlign : 'middle',
+						borderWidth : 0
+					},
+
+					series : formattedForGraph
+				});}
+	</script>
+    
+ </head>  
+
+<body>
+	
+	<button>Show Graph</button>
+	
+	
+	 <div id="avg_response" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+	 
+	 <div id="network_throughput" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+	 
+	 <div id="sample_summary" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+	
+</body>
+</html>
