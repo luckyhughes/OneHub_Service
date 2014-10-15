@@ -1,9 +1,0 @@
-com/onetesthub/dao/PersonDao.class
-com/onetesthub/dao/UserDao.class
-com/onetesthub/model/User.class
-com/onetesthub/model/Person.class
-com/onetesthub/dao/UserDaoImpl.class
-com/onetesthub/controller/PersonController.class
-com/onetesthub/service/PersonService.class
-com/onetesthub/dao/PersonDaoImpl.class
-com/onetesthub/service/PersonServiceImpl.class
