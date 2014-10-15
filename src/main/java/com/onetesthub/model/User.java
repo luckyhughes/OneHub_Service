@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User {
 	
 	@Id
@@ -15,25 +15,25 @@ public class User {
     @GeneratedValue
     private Integer id;
 	
-	@Column(name="FIRSTNAME")
+	@Column(name="FIRSTNAME",nullable=false)
 	String firstName;
 	
-	@Column(name="LASTNAME")
+	@Column(name="LASTNAME",nullable=false)
 	String lastName;
 	
-	@Column(name="USERNAME", unique = true)
+	@Column(name="USERNAME", unique = true, nullable=false)
 	String username;
 	
-	@Column(name="PASSWORD")
+	@Column(name="PASSWORD", nullable=false)
 	String password;
 	
-	@Column(name="COMPANY")
+	@Column(name="COMPANY",nullable=false)
 	String company;
 	
-	@Column(name="PHONE", unique = true)
+	@Column(name="PHONE", unique = true, nullable=false)
 	String phone;
 	
-	@Column(name="EMAIL", unique = true)
+	@Column(name="EMAIL", unique = true, nullable=false)
 	String email;
 	
 	@Column(name="COUNTRY")
