@@ -2,49 +2,59 @@ package com.onetesthub.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.onetesthub.model.Person;
 import com.onetesthub.model.User;
 import com.onetesthub.service.UserService;
 
 @Controller
+@Path("/")
+@Produces(MediaType.APPLICATION_JSON)
 public class UserController {
-	
-	
+
+	//test comment
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/user/list", method = RequestMethod.GET)
-	@ResponseBody
-	public List<User> listContacts() {
-			
-		return userService.listUser();
+	@GET
+	@Path("/user/list")
+	public Response listUsers() {
 
-	}
-	
-	@RequestMapping(value = "/user/list/{username}", method = RequestMethod.GET)
-	@ResponseBody
-	public List<User> findUserByUsername(@PathVariable("username") String username) {
-			
-		return userService.findUserByUsername(username);
+		return Response.status(200).entity(userService.listUser()).build();
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseEntity<User> addUser(@RequestBody User user) {
+	@GET
+	@Path("/user/list/{username}")
+	public Response findUserByUsername(@PathParam("username") String username) {
+
+		return Response.status(200)
+				.entity(userService.findUserByUsername(username)).build();
+
+	}
+
+	@POST
+	@Path("/user")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addUser(User user) {
 
 		userService.addUser(user);
-		return new ResponseEntity(HttpStatus.CREATED);
+		return Response.status(201).build();
 
 	}
 

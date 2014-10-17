@@ -3,6 +3,8 @@ package com.onetesthub.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.onetesthub.model.User;
 
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao{
 
 	@Autowired
@@ -24,7 +27,7 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public List<User> listUser() {
 		
-		return sessionFactory.getCurrentSession().createQuery("from User").list();
+		return sessionFactory.getCurrentSession().createQuery("from User as u left join u.userRole").list();
 	}
 	
 	@Override

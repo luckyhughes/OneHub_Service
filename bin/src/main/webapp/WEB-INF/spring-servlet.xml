@@ -21,7 +21,15 @@
 	<context:component-scan base-package="com.onetesthub.dao"></context:component-scan>
 	<context:component-scan base-package="com.onetesthub.model"></context:component-scan>
 
-<!-- 	<mvc:annotation-driven /> -->
+	<!-- <annotation-driven /> -->
+
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<!-- Turn off working out content type based on URL file extension, should 
+			fall back to looking at the Accept headers -->
+		<property name="favorPathExtension" value="false" />
+	</bean>
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"

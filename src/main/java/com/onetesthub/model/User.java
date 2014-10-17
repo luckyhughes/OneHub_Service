@@ -1,52 +1,71 @@
 package com.onetesthub.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+//import org.hibernate.annotations.Cascade;
+//import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User{
+
+	 @Id
+	 @Column(name = "user_id")
+	 @GeneratedValue
+	 private Integer id;
 	
-	@Id
-    @Column(name="ID")
-    @GeneratedValue
-    private Integer id;
-	
-	@Column(name="FIRSTNAME",nullable=false)
+	@Column(name = "FIRSTNAME", nullable = false)
 	String firstName;
-	
-	@Column(name="LASTNAME",nullable=false)
+
+	@Column(name = "LASTNAME", nullable = false)
 	String lastName;
-	
-	@Column(name="USERNAME", unique = true, nullable=false)
+
+	@Column(name = "USERNAME", unique = true, nullable = false)
 	String username;
-	
-	@Column(name="PASSWORD", nullable=false)
+
+	@Column(name = "PASSWORD", nullable = false)
 	String password;
-	
-	@Column(name="COMPANY",nullable=false)
+
+	@Column(name = "COMPANY", nullable = false)
 	String company;
-	
-	@Column(name="PHONE", unique = true, nullable=false)
+
+	@Column(name = "PHONE", unique = true, nullable = false)
 	String phone;
-	
-	@Column(name="EMAIL", unique = true, nullable=false)
+
+	@Column(name = "EMAIL", unique = true, nullable = false)
 	String email;
-	
-	@Column(name="COUNTRY")
+
+	@Column(name = "COUNTRY")
 	String country;
+
+	@Column(name = "ENABLED", nullable = false, columnDefinition = "boolean default true")
+	private boolean enabled;
+
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private List<UserRole> userRole;
+
+	public User() {
+	}
 	
-
-	public Integer getId() {
-		return id;
+	private void associateRolesWithUser(){
+	    for(UserRole urole : userRole) urole.setUser(this);
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -111,5 +130,25 @@ public class User {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 	
+	public List<UserRole> getUserRole() {
+		return this.userRole;
+	}
+
+	public void setUserRole(List<UserRole> userRole) {
+		this.userRole = userRole;
+		
+		for(UserRole role : userRole) {
+			role.setUser(this);
+		}
+	}
+
 }

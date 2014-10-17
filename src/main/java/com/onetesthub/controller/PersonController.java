@@ -3,40 +3,53 @@ package com.onetesthub.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.onetesthub.model.Person;
 import com.onetesthub.service.PersonService;
 
 @Controller
+@Path("/")
+@Produces(MediaType.APPLICATION_JSON)
 public class PersonController {
 
 	@Autowired
 	private PersonService personService;
-
-	@RequestMapping(value = "/person/list", method = RequestMethod.GET)
-	@ResponseBody
+	
+	
+	@GET
+	@Path("/person/list")
 	public List<Person> listContacts() {
 
 		return personService.listPerson();
 
 	}
 
-	@RequestMapping(value = "/person", method = RequestMethod.POST)
-	public ResponseEntity<Person> addPerson(@RequestBody Person person) {
-
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/person")
+	public Response addPerson(Person person) {
+		
 		personService.addPerson(person);
-		return new ResponseEntity(HttpStatus.CREATED);
-
+		return Response.status(201).entity(person).build();
+ 
 	}
+	
+//	public ResponseEntity<Person> addPerson(@RequestBody Person person) {
+//
+//		personService.addPerson(person);
+//		return new ResponseEntity(HttpStatus.CREATED);
+//
+//	}
 
 	//
 	// @RequestMapping("/delete/{contactId}")

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.onetesthub.dao.PersonDao;
 import com.onetesthub.dao.UserDao;
 import com.onetesthub.model.User;
+import com.onetesthub.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
