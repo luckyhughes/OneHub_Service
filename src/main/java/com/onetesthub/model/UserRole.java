@@ -18,14 +18,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "user_roles")
-public class UserRole implements Serializable{
+public class UserRole{
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "user_role_id", unique = true, nullable = false)
 	private Integer userRoleId;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonBackReference
+	@ManyToOne
 	//@JoinColumn(name = "user_id",nullable=false)
 	private User user;
 

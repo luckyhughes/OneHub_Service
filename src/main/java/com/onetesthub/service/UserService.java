@@ -10,6 +10,6 @@ public interface  UserService {
 	public void addUser(User person);
     public List<User> listUser();
     public void removeUser(Integer id);
-    public List<User> findUserByUsername(String username);
+    public User findUserByUsername(String username);
 
 }

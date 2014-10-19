@@ -13,49 +13,65 @@ import com.onetesthub.model.User;
 
 @Repository
 @Transactional
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
 	@Autowired
-    private SessionFactory sessionFactory;
-	
+	private SessionFactory sessionFactory;
+
 	@Override
 	public void addUser(User user) {
 		sessionFactory.getCurrentSession().persist(user);
-		
+
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUser() {
-		
-		return sessionFactory.getCurrentSession().createQuery("from User as u left join u.userRole").list();
-	}
-	
-	@Override
-	public List<User> findUserByUsername(String username) {
-		
+
 		List<User> users = new ArrayList<User>();
-		
-		users = sessionFactory.getCurrentSession().createQuery("from User where username=?").setParameter(0, username).list();
-		
-		if(users.size()>0) {
-			
+
+		users = sessionFactory.getCurrentSession().createQuery("from User")
+				.list();
+
+		if (users.size() > 0) {
+
 			return users;
+		} else {
+
+			return null;
 		}
-		else{
-			
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public  User findUserByUsername(String username) {
+
+		List<User> users = new ArrayList<User>();
+
+		users = sessionFactory.getCurrentSession()
+				.createQuery("from User where username=?")
+				.setParameter(0, username).list();
+
+		if (users.size() > 0) {
+
+			return users.get(0);
+		} else {
+
 			return null;
 		}
 	}
 
 	@Override
 	public void removeUser(Integer id) {
-		
-		User user = (User) sessionFactory.getCurrentSession().load(User.class, id);
-		
-		if(user!=null){
-		sessionFactory.getCurrentSession().delete(id);
+
+		User user = (User) sessionFactory.getCurrentSession().load(User.class,
+				id);
+
+		if (user != null) {
+			sessionFactory.getCurrentSession().delete(id);
 		}
-		
+
 	}
 
 }

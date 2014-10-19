@@ -50,6 +50,10 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="myUserDetailsService" 
+                class="com.onetesthub.service.MyUserDetailsService">
+	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	

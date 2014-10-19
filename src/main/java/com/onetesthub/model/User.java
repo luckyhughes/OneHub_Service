@@ -56,6 +56,7 @@ public class User{
 	@Column(name = "ENABLED", nullable = false, columnDefinition = "boolean default true")
 	private boolean enabled;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<UserRole> userRole;
 
@@ -131,6 +132,10 @@ public class User{
 		this.country = country;
 	}
 
+	public boolean getEnabled() {
+		return this.enabled;
+	}
+	
 	public boolean isEnabled() {
 		return this.enabled;
 	}
